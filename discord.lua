@@ -576,7 +576,7 @@ end
 local bs = serv2:Channel("Arcade")
 
 bs:Button(
-    "Arcade Win (No't 100% accurate)",
+    "Arcade Win (Not 100% accurate)",
     function()
         local Arcade = workspace.arcade 
 local Object = Arcade.screen.SurfaceGui.stacker.box

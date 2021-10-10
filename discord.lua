@@ -260,10 +260,8 @@ tgls:Toggle(
 
 tgls:Button(
     "Gun Slinger",
-    false,
-    function(boolf)
-
-       --//Normal Variables\\--
+    function(bool)
+--//Normal Variables\\--
 local sk = Enum.KeyCode.K -- Kills the script/events
 local tk = Enum.KeyCode.B -- Toggles the autokill on/off
 local uis = game:GetService("UserInputService")
@@ -310,8 +308,8 @@ e2 = game.Workspace.light.PointLight.Changed:Connect(function()
 game.Workspace.gunholder.ChildAdded:Connect(function(c)
 ka(c.Name)
 end)
-end) 
-    end
+end)
+end
     )
 local player1 = serv:Channel("Player")
 player1:Label("Player Settings GUI")
@@ -576,7 +574,7 @@ end
 local bs = serv2:Channel("Arcade")
 
 bs:Button(
-    "Arcade Win (Not 100% accurate)",
+    "Arcade Win (No't 100% accurate)",
     function()
         local Arcade = workspace.arcade 
 local Object = Arcade.screen.SurfaceGui.stacker.box

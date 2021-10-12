@@ -779,6 +779,9 @@ textbs1:Button(
     end)
     
 local serv5 = win:Server("Main Changelog", "http://www.roblox.com/asset/?id=6031075938")
+local log = serv5:Channel("Change log")
+log:Label("First update!")
+log:Label("Added: M4A1, Sword, Sympatizer, AK-47 and a welcome thing.")
 local serv6 = win:Server("List", "http://www.roblox.com/asset/?id=6827232883")
 local serv7 = win:Server("Developer", "http://www.roblox.com/asset/?id=5217928125")
 

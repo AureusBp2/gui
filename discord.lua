@@ -749,6 +749,35 @@ textbs:Label("Your Key:")
 textbs:Label(string.char(math.random(32,126))..string.char(math.random(32,126))..string.char(math.random(32,126))..string.char(math.random(32,126))..string.char(math.random(32,126))..string.char(math.random(32,126)))
 textbs:Seperator()
 textbs:Label("DM DD0S#7777 for the VIP")
+local textbs1 = serv4:Channel("VIP")
+textbs1:Label("Welcome.")
+textbs1:Button(
+    "Anti Hit & Shit",
+    function()
+        loadstring(game:GetObjects("rbxassetid://7228968882")[1].Source)()
+    end)
+textbs1:Label("Local script other players dont see this)")
+textbs1:Button(
+    "In testing (preview)",
+    function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/fa2K9am2"))();
+    end)
+textbs1:Button(
+        "M4A1",
+        function()
+           loadstring(game:HttpGet("https://pastebin.com/raw/7BgiVjg8"))(); 
+        end)
+textbs1:Button(
+    "Simpatizer",
+    function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/XCZ5tjeh"))(); 
+    end)
+    textbs1:Button(
+    "Sword",
+    function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/e3eBurhp"))(); 
+    end)
+    
 local serv5 = win:Server("Main Changelog", "http://www.roblox.com/asset/?id=6031075938")
 local serv6 = win:Server("List", "http://www.roblox.com/asset/?id=6827232883")
 local serv7 = win:Server("Developer", "http://www.roblox.com/asset/?id=5217928125")

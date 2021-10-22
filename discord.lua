@@ -1,176 +1,94 @@
-
-
---[[
-local serv = win:Server("DD0S", "")
-
-local btns = serv:Channel("Buttons")
-
-btns:Button(
-    "Kill all",
-    function()
-        DiscordLib:Notification("Notification", "Killed everyone!", "Okay!")
-    end
-)
-
-btns:Seperator()
-
-btns:Button(
-    "Get max level",
-    function()
-        DiscordLib:Notification("Notification", "Max level!", "Okay!")
-    end
-)
-
-local tgls = serv:Channel("Toggles")
-
-tgls:Toggle(
-    "Auto-Farm",
-    false,
-    function(bool)
-        print(bool)
-    end
-)
-
-local sldrs = serv:Channel("Sliders")
-
-local sldr =
-    sldrs:Slider(
-    "Slide me!",
-    0,
-    1000,
-    400,
-    function(t)
-        print(t)
-    end
-)
-
-sldrs:Button(
-    "Change to 50",
-    function()
-        sldr:Change(50)
-    end
-)
-
-local drops = serv:Channel("Dropdowns")
-
-local drop =
-    drops:Dropdown(
-    "Pick me!",
-    {"Option 1", "Option 2", "Option 3", "Option 4", "Option 5"},
-    function(bool)
-        print(bool)
-    end
-)
-
-drops:Button(
-    "Clear",
-    function()
-        drop:Clear()
-    end
-)
-
-drops:Button(
-    "Add option",
-    function()
-        drop:Add("Option")
-    end
-)
-
-local clrs = serv:Channel("Colorpickers")
-
-clrs:Colorpicker(
-    "ESP Color",
-    Color3.fromRGB(255, 1, 1),
-    function(t)
-        print(t)
-    end
-)
-
-local textbs = serv:Channel("Textboxes")
-
-textbs:Textbox(
-    "Gun power",
-    "Type here!",
-    true,
-    function(t)
-        print(t)
-    end
-)
-
-local lbls = serv:Channel("Labels")
-
-lbls:Label("This is just a label.")
-
-local bnds = serv:Channel("Binds")
-
-bnds:Bind(
-    "Kill bind",
-    Enum.KeyCode.RightShift,
-    function()
-        print("Killed everyone!")
-    end
-)
-]]--
-
-loadstring(game:HttpGet"https://pastebin.com/raw/7bEWJaiT")()
-local DiscordLib =
-    loadstring(game:HttpGet"https://pastebin.com/raw/WeLA0ip9")()
-
-local win = DiscordLib:Window("Breaking Point library")
-DiscordLib:Notification("Note:", "The UI is developement! You can suggest us scripts to add to the gui by joining our support discord server! Link in the info channel.", "I understand.")
 game.StarterGui:SetCore("SendNotification", {Title = "BP1 Library", Text = "Loaded successfully!", Icon = "rbxassetid://7681420911", Duration = 5, Button1 = "Okay"})
-local serv = win:Server("DD0S", "http://www.roblox.com/asset/?id=2530517466")
+local SynixWare = loadstring(game:HttpGet"https://pastebin.com/raw/07khgLDY")()
 
-local btns = serv:Channel("Kill Scripts")
-btns:Seperator()
-btns:Label("Using the scripts bellow won't get you trade banned!")
-btns:Bind(
-    "Kill Current Player",
-    Enum.KeyCode.RightShift,
-    function()
-       for i,v in pairs(game.Players:GetPlayers()) do
-        if v.Name ~= game.Players.LocalPlayer.Name then
-            if game.Workspace:FindFirstChild(v.Name) then
-                if game.Workspace[v.Name].Humanoid.Sit ~= true then
-                    if game.Workspace[v.Name]:FindFirstChild("Blade") then
-                        game:GetService("ReplicatedStorage").RemoteEvent:FireServer(37, CFrame.new(Vector3.new(0, 0, 0), Vector3.new(0, 0, 0)), Vector3.new(v.Character.Head.CFrame.x, 4, v.Character.Head.CFrame.z), Vector3.new(0, 0, 0))
-                        wait(.1)
-                        game:GetService("ReplicatedStorage").RemoteEvent:FireServer(43, v.Character.Head, v, "IIlIla", true)
-                    else
-                        if v.Backpack:FindFirstChild("Blade") then
-                            game:GetService("ReplicatedStorage").RemoteEvent:FireServer(37, CFrame.new(Vector3.new(0, 0, 0), Vector3.new(0, 0, 0)), Vector3.new(v.Character.Head.CFrame.x, 4, v.Character.Head.CFrame.z), Vector3.new(0, 0, 0))
-                            wait(.1)
-                            game:GetService("ReplicatedStorage").RemoteEvent:FireServer(43, v.Character.Head, v, "IIlIla", true)
-                        end
-                    end
-                end
-            end
-        end
-    end
-    end
-)
-btns:Button(
-    "Hitboxes (6,6,6)",
-    function()
- for _, v in pairs(game:GetService("Players"):GetPlayers()) do
+_G.closeBind = Enum.KeyCode.P
+
+local win = SynixWare:Window("DD0S", "Breaking Point", Color3.fromRGB(15, 128, 255), _G.closeBind)
+SynixWare:AddNotification("UI Loaded, fuck the old library.", "Okay.")
+function toClipboard(String)
+	local clipBoard = setclipboard or toclipboard or set_clipboard or (Clipboard and Clipboard.set)
+	if clipBoard then
+		clipBoard(String)
+		SynixWare:AddNotification('Copied', 'Copied in your ClipBoard.')
+	else
+		SynixWare:AddNotification("Clipboard","Your exploit doesn't have the ability to use the clipboard")
+	end
+end
+
+local Settings = win:Tab("Settings/Credits", "http://www.roblox.com/asset/?id=6031280882")-- Tab
+
+
+Settings:AddLine()--Line
+
+Settings:AddLabel("UI Settings")--Label
+
+Settings:AddColorpicker("Change UI Color", Color3.fromRGB(15, 128, 255), function(t)--Change UI Color
+    _G.PresetColor = t
+    coroutine.wrap(_G.changeColor)()
+    end)
+ 
+    Settings:AddBind("Toggle UI", Enum.KeyCode.P, function()--Toggle UI
+    _G.toggleUiHere()
+        end)
+
+Settings:AddButton("Destroy UI", "Destroy The UI", function()-- Destoy UI
+            SynixWare:Destroy()
+            end)
+Settings:AddLine()-- line
+
+Settings:AddLabel("Credits")--Label
+    
+Settings:AddButton("Copy Discord Link", "Join us!", function()--Button
+local http = game:GetService('HttpService') 
+	if toClipboard then
+		toClipboard('https://discord.com/invite/fJSuja72bk')
+		SynixWare:AddNotification("Your executor don't support syn.request.", "RIP")
+	else
+		SynixWare:AddNotification('discord.gg/fJSuja72bk', 'Okay!')
+	end
+	local req = (syn and syn.request) or (http and http.request) or http_request
+	if req then
+		req({
+			Url = 'http://127.0.0.1:6463/rpc?v=1',
+			Method = 'POST',
+			Headers = {
+				['Content-Type'] = 'application/json',
+				Origin = 'https://discord.com'
+			},
+			Body = http:JSONEncode({
+				cmd = 'INVITE_BROWSER',
+				nonce = http:GenerateGUID(false),
+				args = {code = 'fJSuja72bk'}
+			})
+		})
+	end
+end)
+
+Settings:AddLabel("DD0S#7777")--Label
+            
+Settings:AddLine()
+
+local script = win:Tab("Main Scripts", "http://www.roblox.com/asset/?id=6034848748")
+script:AddLine()
+script:AddLabelMiddle("Kill scripts")
+script:AddLabelWarn("The scripts bellow won't get you trade banned.")
+script:AddButton("Hitboxes (6,6,6)", "Change the size of the Hitboxes to a width of (6,6,6).",
+    function()--Button
+     for _, v in pairs(game:GetService("Players"):GetPlayers()) do
     if v.Name ~= game:GetService("Players").LocalPlayer.Name then
      v.Character.Head.CanCollide = false
      v.Character.Head.Size = Vector3.new(6, 6, 6)
      v.Character.Head.Transparency = 1
    end
  end
-   end)
-btns:Button(
-    "Universal Hitboxes Script",
+end)
+script:AddButton("Universal Hitboxes", "This GUI is not detectable if you do not abuse it.", 
     function()
-        DiscordLib:Notification("Just like that", "I stole this script, I was too lasy.", "Ok retard")
-        loadstring(game:HttpGet("http://gameovers.net/Scripts/Free/HitboxExpander/main.lua", true))()
-    end
-)
-btns:Button(
-    "Auto throw {beta}",
+      loadstring(game:HttpGet("http://gameovers.net/Scripts/Free/HitboxExpander/main.lua", true))() 
+    end)
+script:AddButton("Auto throw {beta}", "This script is bad.",
     function()
-        local plrs = game:service "Players"
+                local plrs = game:service "Players"
 local lp = plrs.LocalPlayer
 local bind = lp.PlayerScripts.Event
 local ThrowKnifeFunc
@@ -229,23 +147,18 @@ while wait(0.1) do
         ThrowKnifeFunc(ptr.Character.HumanoidRootPart.CFrame)
     end
 end
-        end)
-btns:Seperator()
-btns:Label("Using the scripts bellow will get you trade banned!")
-btns:Button(
-    "Alway Hit and Kill Aura",
-function()
-    loadstring(game:HttpGet('https://pastebin.com/raw/TqPihvFD', true))()
-    end
-)
+    end)
+script:AddLine()
+script:AddLabelWarn("Using The scripts bellow will get you trade banned.")
+script:AddButton("Alway Hit & Kill Aura", "This is the original script.",
+    function()
+         loadstring(game:HttpGet('https://pastebin.com/raw/TqPihvFD', true))()
+    end)
+script:AddLine()
+script:AddLabelMiddle("Gun Scripts")
 
-local tgls = serv:Channel("Gun Scripts")
-
-tgls:Toggle(
-    "Kill all gun / Credits Script",
-    false,
-    function(bool)
-        wait()
+script:AddToggle("Kill all gun", "AKA infinite money script.",false, function(t)-- Toggle Example ("Title", "Description",Debeautiful, callback)
+            wait()
    game:GetService("ReplicatedStorage").RemoteEvent:FireServer(16, "public")
    wait()
    for i,v in pairs(game.Players:GetPlayers()) do
@@ -255,14 +168,10 @@ tgls:Toggle(
           
        end
    end
-
-    end
-)
-
-tgls:Button(
-    "Gun Slinger",
-    function(bool)
---//Normal Variables\\--
+end)
+script:AddButton("Gun Slinger", "Work only in the gamemode 'Gunslinger'.",
+    function()
+      --//Normal Variables\\--
 local sk = Enum.KeyCode.K -- Kills the script/events
 local tk = Enum.KeyCode.B -- Toggles the autokill on/off
 local uis = game:GetService("UserInputService")
@@ -309,52 +218,31 @@ e2 = game.Workspace.light.PointLight.Changed:Connect(function()
 game.Workspace.gunholder.ChildAdded:Connect(function(c)
 ka(c.Name)
 end)
-end)
-end
-    )
-local player1 = serv:Channel("Player")
-player1:Label("Player Settings GUI")
-player1:Button(
-    "Settings",
-    function()
-        loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/LOOF-sys/Roblox-Shit/main/BreakingPoint.lua",true))()
+end)  
     end)
-player1:Seperator()
-player1:Label("Info/Light for more information")
-player1:Button(
-    "Destroy Player Torso Light",
+script:AddLine()
+script:AddLabelMiddle("Player Settings")
+script:AddButton("Settings", "Change your character settings.",
     function()
-local player = game.Players.LocalPlayer.Name
+               loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/LOOF-sys/Roblox-Shit/main/BreakingPoint.lua",true))()
+    end)
+script:AddButton("Destroy Torso Light", "Destroy your torso light.", function()
+    local player = game.Players.LocalPlayer.Name
             game.Workspace:FindFirstChild(player).Torso.PointLight:Destroy()
-end
-)
-player1:Seperator()
-player1:Label("FE FLIP (Keybinds: Z,X,C)")
-player1:Button(
-    "FE FLIP",
-    function()
-        loadstring(game:HttpGet("https://pastebin.com/raw/NSfxNDBg", true))()
     end)
-player1:Seperator()
-player1:Label("You won't get kicked for being AFK.")
-player1:Button(
-    "Anti Idle",
-    function()
-        DiscordLib:Notification('Anti Idle','Anti idle is enabled', "Perfect")
-	local vu = game:GetService("VirtualUser")
+script:AddButton("FE FLIP", "(Keybinds: Z,X,C)", function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/NSfxNDBg", true))()
+end)
+script:AddButton("Anti IDLE", "You won't get kicked for inactivity!", function()
+    	local vu = game:GetService("VirtualUser")
 game:GetService("Players").LocalPlayer.Idled:connect(function()
    vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
    wait(1)
    vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
    end)
-end
-)
-player1:Seperator()
-player1:Label('Execute when it says "beggining game."')
-player1:Button(
-    "FE invisible",
-    function()
-        Local = game:GetService('Players').LocalPlayer
+end)
+script:AddButton("FE invisible", 'Execute when it says "beggining game".', function()
+            Local = game:GetService('Players').LocalPlayer
 Char  = Local.Character
 touched,tpdback = false, false
 Local.CharacterAdded:connect(function(char)
@@ -400,73 +288,26 @@ repeat wait() until Char
 loc = Char.HumanoidRootPart.Position
 Char:MoveTo(box.Position + Vector3.new(0,.5,0))
 game.StarterGui:SetCore("SendNotification",{Title="Made by DD0S",Text='Execute when it says "beggining game"',Duration=12})
-        end)
-local drops = serv:Channel("Dropdowns")
+end)
+script:AddToggle("Anti Hit", "TP you around the table",false, function()
 
-local drop =
-    drops:Dropdown(
-    "Pick me!",
-    {"Option 1", "Option 2", "Option 3", "Option 4", "Option 5"},
-    function(bool)
+wait(1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-47.067363739014, 3.0214464664459, -241.70703125)
+wait(1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-13.555360794067, 3.0214464664459, -179.99700927734)
+wait(1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-12.890952110291, 3.0214471817017, -242.22521972656)
+wait(1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-48.113338470459, 3.0214471817017, -179.02966308594)
+wait(1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-30.09005355835, 6.5734910964966, -211.66963195801)
 
-    end
-)
-
-drops:Button(
-    "Clear",
-    function()
-        drop:Clear()
-    end
-)
-
-drops:Button(
-    "Add option",
-    function()
-        drop:Add("Option")
-    end
-)
-
-local clrs = serv:Channel("Colorpickers")
-
-clrs:Colorpicker(
-    "ESP Color",
-    Color3.fromRGB(255, 1, 1),
-    function(t)
-        print(t)
-    end
-)
-
-local textbs = serv:Channel("Textboxes")
-
-textbs:Textbox(
-    "Gun power",
-    "Type here!",
-    true,
-    function(t)
-        print(t)
-    end
-)
-
-local lbls = serv:Channel("Labels")
-
-lbls:Label("This is just a label.")
-
-local bnds = serv:Channel("Binds")
-
-bnds:Bind(
-    "Put afk mode",
-    Enum.KeyCode.RightShift,
-    function()
-game.Players.VampIsMyGod.settings.Afk.Value = not 
-game.Players.VampIsMyGod.settings.Afk.Value
-    end
-)
-bnds:Bind(
-    "Break the light.",
-    Enum.KeyCode.RightShift,
-    function()
-      -- Script generated by SimpleSpy - credits to exx#9394
-
+end)
+    
+script:AddLine()
+script:AddLabelMiddle("Binds")
+script:AddBind("Break the light.", Enum.KeyCode.P, function(t)-- Blind Example ("Title","Key Code", Callback)
+    
 local args = {
     [1] = 45,
     [2] = nil --[[Vector3]]
@@ -474,15 +315,107 @@ local args = {
 
 game:GetService("ReplicatedStorage").RemoteEvent:FireServer(unpack(args))
   
+end)
+script:AddBind("TP to the middle.", Enum.KeyCode.P, function(t)-- Blind Example ("Title","Key Code", Callback)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-30.112972259521, 6.3288602828979, -210.99415588379)
+end)
+script:AddLine()
+local killall =
+script:AddDropdown("Part to aim at.", {"Torso","Head",}, function(t) -- Dropdown Example ("Title", {"idk","names"}, Callback)
+t = AIMPART
+end)
+
+script:AddBind("Kill Current player.", Enum.KeyCode.P, function(y)
+    while wait() do
+    for i,v in pairs(game.Players:GetPlayers()) do
+        if v.Name ~= game.Players.LocalPlayer.Name then
+            if game.Workspace:FindFirstChild(v.Name) then
+                if game.Workspace[v.Name].Humanoid.Sit ~= true then
+                    if game.Workspace[v.Name]:FindFirstChild("Blade") then
+                        game:GetService("ReplicatedStorage").RemoteEvent:FireServer(37, CFrame.new(Vector3.new(0, 0, 0), Vector3.new(0, 0, 0)), Vector3.new(v.Character.AIMPART.CFrame.x, 4, v.Character.AIMPART.CFrame.z), Vector3.new(0, 0, 0))
+                        wait(.1)
+                        game:GetService("ReplicatedStorage").RemoteEvent:FireServer(43, v.Character.Head, v, "IIlIla", true)
+                    else
+                        if v.Backpack:FindFirstChild("Blade") then
+                            game:GetService("ReplicatedStorage").RemoteEvent:FireServer(37, CFrame.new(Vector3.new(0, 0, 0), Vector3.new(0, 0, 0)), Vector3.new(v.Character.AIMPART.CFrame.x, 4, v.Character.AIMPART.CFrame.z), Vector3.new(0, 0, 0))
+                            wait(.1)
+                            game:GetService("ReplicatedStorage").RemoteEvent:FireServer(43, v.Character.Head, v, "IIlIla", true)
+                            print(v.Name)
+                        end
+                    end
+                end
+            end
+        end
     end
-)
----
-local serv2 = win:Server("Others", "http://www.roblox.com/asset/?id=966818843")
-local textbs = serv2:Channel("Screen")
-textbs:Button(
-    "Night Vision",
+end
+end)
+-------------------
+local vip = win:Tab("VIP", "http://www.roblox.com/asset/?id=962484429")
+vip:AddLine()
+vip:AddLabelMiddle("Key")
+vip:AddTextbox("Password", "Enter the VIP key. Check info for more help.", true, function(pass)-- TextBox Example ("Title", "Description", debeautiful, callback)
+if pass ~= "SynaD0S" then
+         SynixWare:AddNotification("Incorect.", "Okay.")
+         else
+       SynixWare:AddNotification("Welcome!", "Epic!")
+       vip:AddLine()
+       vip:AddLabelMiddle("Welcome " .. game.Players.LocalPlayer.DisplayName)
+       vip:AddButton("Candy Crown", "10k Credits.",
     function()
-        function empty() end
+               local args = {
+    [1] = 66,
+    [2] = "Knife Skins",
+    [3] = "Winter Gift"
+}
+
+game:GetService("ReplicatedStorage").RemoteFunction:InvokeServer(unpack(args))
+
+end)
+
+vip:AddButton("Royal Red.", "10k Credits.",
+    function()
+                 local args = {
+    [1] = 66,
+    [2] = "Chair Skins",
+    [3] = "Winter"
+}
+
+game:GetService("ReplicatedStorage").RemoteFunction:InvokeServer(unpack(args))
+    end)
+    vip:AddButton("Antlers", "10k Credits.",
+    function()
+         local args = {
+    [1] = 66,
+    [2] = "Accessories",
+    [3] = "Knife Antlers"
+}
+
+game:GetService("ReplicatedStorage").RemoteFunction:InvokeServer(unpack(args))
+    end)
+    vip:AddButton("/e rain", "3 Credits.",
+    function()
+                local args = {
+    [1] = 66,
+    [2] = "Animations",
+    [3] = "Exclusive"
+}
+
+game:GetService("ReplicatedStorage").RemoteFunction:InvokeServer(unpack(args)) 
+    end)
+        end
+end)
+
+-------------------
+local changelog = win:Tab("Change Log", "http://www.roblox.com/asset/?id=6031075938")
+
+changelog:AddLine()
+-------------------
+local oth = win:Tab("Others", "http://www.roblox.com/asset/?id=7468828225")
+oth:AddLine()
+oth:AddLabelMiddle("Screen")
+oth:AddToggle("Night Vision", "You can see even if someone shoots in secret. (Who did it & BreakingPoint)",false, function(nv)
+            function empty() end
+            if nv == true then
 function GetNightVision()
     for i, v in pairs(getgc(true)) do
          if type(v) == "table" and rawget(v, "serverkeycomp") then
@@ -491,56 +424,18 @@ function GetNightVision()
         end
     end
 end
-
+else
+    
+end
 GetNightVision()
-    end
-)
-textbs:Textbox(
-    "Custom Crossair AssetID",
-    "asset ID",
-    true,
- function(cursorc)
-local plr = game.Players.LocalPlayer
-local mouse = plr:GetMouse()
-local char
-local canMove = true
-repeat 
-	wait()
-	char = plr.Character
-until char~=nil
-mouse.Icon= 'http://www.roblox.com/asset/?id=' cursorc();
-mouse.Move:connect(function()
-	circle.Position = Vector3.new(mouse.Hit.p.X,mouse.Target.Position.Y,mouse.Hit.p.Z)
-	if(char.Torso.Position-mouse.Hit.p).Magnitude>=50 then
-		circle.Transparency=1
-		mouse.Icon= 'http://www.roblox.com/asset/?id='..cursorc()
-		canMove=false
-	else
-		circle.Transparency=0
-		mouse.Icon= 'http://www.roblox.com/asset/?id='..cursorc()
-		canMove=true
-end
 end)
+oth:AddTextbox("Custom Cursor", "Put the Asset ID of the cursor.",false, function(cursorc)
+    local player = game.Players.LocalPlayer
+local mouse = player:GetMouse()
+mouse.Icon = "rbxassetid://"..cursorc
 end)
-textbs:Label("ASSET ID'S AREN'T IN THE LINK! (check the /info/ channel!)")
-textbs:Button(
-    "Examples",
-    function()
-function toClipboard(String)
-	local clipBoard = setclipboard or toclipboard or set_clipboard or (Clipboard and Clipboard.set)
-	if clipBoard then
-		clipBoard(String)
-		DiscordLib:Notification('Examples','https://docs.google.com/spreadsheets/d/1p_zecs1MGUHfrOfs7XA82nJt0CJZdLHn3-xvMaKFG6Y/edit#gid=566038028 (Link copied in your ClipBoard.)', 'Thanks!')
-	else
-		DiscordLib:Notification("Clipboard","Your exploit doesn't have the ability to use the clipboard", "Bruh")
-	end
-end
-        toClipboard('https://docs.google.com/spreadsheets/d/1p_zecs1MGUHfrOfs7XA82nJt0CJZdLHn3-xvMaKFG6Y/edit#gid=566038028')
-        end)
-textbs:Button(
-    "Old Console",
-    function()
-        DiscordLib:Notification("Wait-", "Hold on bro", "Sure?")
+oth:AddButton("Old Console", "Load the old console.", function()
+           SynixWare:AddNotification("Hold on bro.", "Gotchu.")
         local _, str = pcall(function()
 		return game:HttpGet("https://gist.githubusercontent.com/luatsuki/a1b48e02d5710ebff8fe1ffb1fc5ea38/raw/055143d9238eb6645fbb1f5c4a9a0122ca90c8f4/Console", true)
 	end)
@@ -559,25 +454,12 @@ textbs:Button(
 		end
 	end
 	wait(1)
-	DiscordLib:Notification("Old Console?", "Press F9 to open the console.", "Hot Shit")
-   end
-)
-
-btns:Seperator()
-
-textbs:Button(
-    "Buy Credits Open/Close",
-    function()
-    game.Players.LocalPlayer.PlayerGui.ScreenGui.credits.Visible = not 
-    game.Players.LocalPlayer.PlayerGui.ScreenGui.credits.Visible
-end
-)
-local bs = serv2:Channel("Arcade")
-
-bs:Button(
-    "Arcade Win (No't 100% accurate)",
-    function()
-        local Arcade = workspace.arcade 
+	SynixWare:AddNotification("Press F9 to open the console.", "Ight.")
+end)
+oth:AddLine()
+oth:AddLabelMiddle("Arcade")
+oth:AddButton("Win arcade.", "Not 100% accurate.", function()
+     local Arcade = workspace.arcade 
 local Object = Arcade.screen.SurfaceGui.stacker.box
 
 local PlayButton = Arcade.button2 
@@ -589,14 +471,11 @@ Object:GetPropertyChangedSignal('Position'):Connect(function()
         fireclickdetector(PlayButton.ClickDetector)
     end
 end)
-    end
-    )
-local bs2 = serv2:Channel("UnTrade Ban")
-
-bs2:Button(
-    "Spam the server lag button.",
-    function()
-        local Material = loadstring(game:HttpGet('https://raw.githubusercontent.com/Kinlei/MaterialLua/master/Module.lua'))()
+end)
+oth:AddLine()
+oth:AddLabelMiddle("UntradeBan")
+oth:AddButton("UntradeBan","Spam the first button or watch a youtube video.",function()
+            local Material = loadstring(game:HttpGet('https://raw.githubusercontent.com/Kinlei/MaterialLua/master/Module.lua'))()
 
 local UI = Material.Load({
      Title = "Remake by DD0S",
@@ -642,226 +521,87 @@ end
     end
 end
 })
-    end
-    )
-local bs3 = serv2:Channel("CMDS")
-bs3:Seperator()
-bs3:Button(
-    "Infinite Yield",
-    function()
-        loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
-    end)
-    bs3:Seperator()
-bs3:Button(
-    "CMD-X",
-    function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/Source", true))()
-    end)
-bs3:Seperator()
-bs3:Button(
-    "Fate's Admin",
-    function()
-       loadstring(game:HttpGet("https://raw.githubusercontent.com/fatesc/fates-admin/main/main.lua"))();
-    end)
-bs3:Seperator()
-local bs4 = serv2:Channel("Players")
-bs4:Button(
-    "Arrow",
-    function()
-        
-        end)
----
-local serv3 = win:Server("Info", "http://www.roblox.com/asset/?id=291688285")
-local infoe = serv3:Channel("Credits")
-infoe:Label("Thanks to:")
-infoe:Label("BlueCage for his broken game.")
-infoe:Label("CtrIsunshine for moral support and more!")
-infoe:Label("Landen just because he's my friend.")
-infoe:Label("Alex for making bp1 but better.")
-infoe:Label("And you for using this UI!!")
-infoe:Label("You can crack this bullshit gui idc.")
-local info1 = serv3:Channel("Discord")
-info1:Label("Support Server")
-info1:Button(
-    "Discord Invite",
-    function()
-  	local http = game:GetService('HttpService') 
-	if toClipboard then
-		toClipboard('https://discord.com/invite/fJSuja72bk')
-		info1:Notification('Discord Invite', 'Copied to clipboard!\ndiscord.gg/fJSuja72bk', 'Okay!')
-	else
-		DiscordLib:Notification('Discord Invite', 'discord.gg/fJSuja72bk', 'Okay!')
-	end
-	local req = (syn and syn.request) or (http and http.request) or http_request
-	if req then
-		req({
-			Url = 'http://127.0.0.1:6463/rpc?v=1',
-			Method = 'POST',
-			Headers = {
-				['Content-Type'] = 'application/json',
-				Origin = 'https://discord.com'
-			},
-			Body = http:JSONEncode({
-				cmd = 'INVITE_BROWSER',
-				nonce = http:GenerateGUID(false),
-				args = {code = 'fJSuja72bk'}
-			})
-		})
-	end
-    end
-)
-local info1 = serv3:Channel("---------------------------")
-local info2 = serv3:Channel("Crossair/Cursor")
-info2:Label("Help with the AssetID.")
-info2:Button(
-    "Custom Crossair",
-    function()
-        function toClipboard(String)
-	local clipBoard = setclipboard or toclipboard or set_clipboard or (Clipboard and Clipboard.set)
-	if clipBoard then
-		clipBoard(String)
-		DiscordLib:Notification('Help (Custom Crossair)','Watch the youtube video. Link copied in your clipboard', 'Thanks!')
-	else
-		DiscordLib:Notification("Clipboard","Your exploit doesn't have the ability to use the clipboard", "Bruh")
-	end
-end
-        toClipboard('https://www.youtube.com/watch?v=-immkhRI2Vk&t=63s')
-        
-    end
-    )
-local info3 = serv3:Channel("Light")
-info3:Label("(Server) It destroys the light in your torso, nobody can see")
-info3:Label("the light anymore!")
-local info4 = serv3:Channel("KeyBinds")
-info4:Seperator()
-info4:Label("Break the Light Bind")
-info4:Label("It breaks the light when you press the keybind!")
-info4:Seperator()
-info4:Label("Put AFK Mode Bind.")
-info4:Button(
-    "Help",
-    function()
-DiscordLib:Notification("Help", "The reminder won't appear but you're on afk mode.", "Okay!")
 end)
-info4:Seperator()
-local serv4 = win:Server("CtrIsunshine", "http://www.roblox.com/asset/?id=962484429")
-local textbs = serv4:Channel("VIP Access")
-textbs:Label("Your Key:")
-textbs:Label(string.char(math.random(32,126))..string.char(math.random(32,126))..string.char(math.random(32,126))..string.char(math.random(32,126))..string.char(math.random(32,126))..string.char(math.random(32,126)))
-textbs:Seperator()
-textbs:Label("DM DD0S#7777 for the VIP")
-local textbs1 = serv4:Channel("VIP")
-textbs1:Label("Welcome.")
-textbs1:Button(
-    "Anti Hit & Shit",
-    function()
-        loadstring(game:GetObjects("rbxassetid://7228968882")[1].Source)()
+oth:AddLine()
+oth:AddLabelMiddle("CMDS")
+oth:AddLabel("1")
+oth:AddButton("Infinite Yield","The best.",function()
+    loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
+end)
+oth:AddLabel("2")
+oth:AddButton("CMD-X","Second best script.",function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/Source", true))()
+end)
+oth:AddLabel("3")
+oth:AddButton("Fate's Admin","Use it if you want.",function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/fatesc/fates-admin/main/main.lua"))();
     end)
-textbs1:Label("Local script other players dont see this)")
-textbs1:Button(
-    "In testing (preview)",
-    function()
-        loadstring(game:HttpGet("https://pastebin.com/raw/fa2K9am2"))();
-    end)
-textbs1:Button(
-        "M4A1",
-        function()
-           loadstring(game:HttpGet("https://pastebin.com/raw/7BgiVjg8"))(); 
+oth:AddLine()
+oth:AddLabelMiddle("Extra")
+oth:AddToggle("Buy credits.","It cost robux but it works.",false,function()
+    if game.Players.LocalPlayer.PlayerGui.ScreenGui.credits.Visible ~= true then
+       game.Players.LocalPlayer.PlayerGui.ScreenGui.credits.Visible = true 
+elseif
+    game.Players.LocalPlayer.PlayerGui.ScreenGui.credits.Visible ~= false then
+        game.Players.LocalPlayer.PlayerGui.ScreenGui.credits.Visible = false
+        end
+end)
+
+-------------------
+local par = win:Tab("Partners", "http://www.roblox.com/asset/?id=6827232883")
+
+par:AddLine()
+
+par:AddLabelMiddle("Partners!")
+
+par:AddLine()
+par:AddLabelbox("1- Jaxister Family")
+par:AddLabel("https://discord.gg/sEXMkHnKjy")
+par:AddLine()
+par:AddLabelbox("CtrIsunshine, C8qe, Vampi & Xander.")
+par:AddLine()
+-------------------
+local help = win:Tab("Help & Info", "http://www.roblox.com/asset/?id=291688285")
+
+help:AddLine()
+-------------------
+local dev = win:Tab("Developer", "http://www.roblox.com/asset/?id=5217928125")
+dev:AddTextbox("Access to the dev module.", "The password system is broken.", false, function(deve)
+    if deve == "123" then
+        dev:AddToggle("DEBUG","LAGS",false, function(de)
+local Players = game:GetService("Players")
+ 
+Players.PlayerAdded:Connect(function(player)
+	print(player.Name .. " joined the game!")
+end)
+ 
+Players.PlayerRemoving:Connect(function(player)
+	print(player.Name .. " left the game!")
+end)
         end)
-textbs1:Button(
-    "Simpatizer",
-    function()
-        loadstring(game:HttpGet("https://pastebin.com/raw/XCZ5tjeh"))(); 
-    end)
-    textbs1:Button(
-    "Sword",
-    function()
-        loadstring(game:HttpGet("https://pastebin.com/raw/e3eBurhp"))(); 
-    end)
-    
-local serv5 = win:Server("Main Changelog", "http://www.roblox.com/asset/?id=6031075938")
-local log = serv5:Channel("Change log")
-log:Label("First update!")
-log:Label("Added: M4A1, Sword, Sympatizer, AK-47 and a welcome thing.")
-local serv6 = win:Server("List", "http://www.roblox.com/asset/?id=6827232883")
-local serv7 = win:Server("Developer", "http://www.roblox.com/asset/?id=5217928125")
-
-local textbs = serv7:Channel("Member Access")
-textbs:Textbox(
-    "Password",
-    "Type here",
-    true,
- function(pass)
-        DiscordLib:Notification("Access Denied", "Incorrect Password", "Go back-")
     end
-)
-local serv8 = win:Server("VIP+", "http://www.roblox.com/asset/?id=3473746470")
-local vip1 = serv8:Channel("Welcome")
-vip1:Label("You have access to the `Items giver channel`")
-local vip2 = serv8:Channel("Items Giver")
+end)
 
-vip2:Label("1 Credit")
-vip2:Button(
-    "/e Rain",
-    function()
-        local args = {
-    [1] = 66,
-    [2] = "Animations",
-    [3] = "Exclusive"
-}
+local A = win:Tab("Game & Player INFO", "http://www.roblox.com/asset/?id=1510598093")
+A:AddLabelMiddle("Workspace")
+A:AddLabelbox("DistributedGameTime: " .. game.Workspace.DistributedGameTime)
+A:AddLabelbox("Gravity: " .. game.Workspace.Gravity)
+A:AddLabelbox("FilteringEnabled: True")
+A:AddLabelbox("StreamingEnabled: False")
+A:AddLabelbox("AllowThirdPartySales: False")
+A:AddLine()
+A:AddLabelMiddle("Local Player")
+A:AddLabelbox("Username: ".. game.Players.LocalPlayer.Character.Name)
+A:AddLabelbox("DisplayName: ".. game.Players.LocalPlayer.Character.Humanoid.DisplayName)
+A:AddLabelbox("WalkSpeed: ".. game.Players.LocalPlayer.Character.Humanoid.WalkSpeed)
+A:AddLabelbox("JumpPower: ".. game.Players.LocalPlayer.Character.Humanoid.JumpPower)
+A:AddLabelbox("DataCost: ".. game.Players.LocalPlayer.Character.DataCost)
+A:AddLabelbox("MaxHealth: ".. game.Players.LocalPlayer.Character.Humanoid.MaxHealth)
+A:AddLabelbox("Health: ".. game.Players.LocalPlayer.Character.Humanoid.Health)
+A:AddLabelbox("Dname: ".. game.Players.LocalPlayer.Character.Humanoid.Name)
+A:AddLine()
 
-game:GetService("ReplicatedStorage").RemoteFunction:InvokeServer(unpack(args))
-DiscordLib:Notification("Success", "You lost 1 Credit but you recieved a /e Rain", "Ok.")
-end    
-)
-
-vip2:Seperator()
-
-vip2:Label("10 000 Credits")
-vip2:Button(
-    "Antlers (Accessory)",
-    function()
-local args = {
-    [1] = 66,
-    [2] = "Accessories",
-    [3] = "Knife Antlers"
-}
-
-game:GetService("ReplicatedStorage").RemoteFunction:InvokeServer(unpack(args))
-DiscordLib:Notification("Success", "You lost 10 000 Credits but you recieved a Accessory", "Ok.") 
-end
-)
-
-vip2:Seperator()
-
-vip2:Label("10 000 Credits")
-vip2:Button(
-    "Candy Crown",
-    function()
-        local args = {
-    [1] = 66,
-    [2] = "Knife Skins",
-    [3] = "Winter Gift"
-}
-
-game:GetService("ReplicatedStorage").RemoteFunction:InvokeServer(unpack(args))
-DiscordLib:Notification("Success", "You lost 10 000 Credits but you recieved a Candy Crown", "Ok.")
-end
-)
-
-vip2:Seperator()
-
-vip2:Label("10 000 Credits")
-vip2:Button(
-    "Royal Red",
-    function()
-        local args = {
-    [1] = 66,
-    [2] = "Chair Skins",
-    [3] = "Winter"
-}
-
-game:GetService("ReplicatedStorage").RemoteFunction:InvokeServer(unpack(args))
-DiscordLib:Notification("Success", "You lost 10 000 Credits but you recieved a Royal Red", "Ok.")
-end
-)
+A:AddTextbox("Print()", "Print something.",false, function(print232)
+print(print232)
+ toClipboard(print232)
+end)
